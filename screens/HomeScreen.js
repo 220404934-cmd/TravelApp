@@ -3,11 +3,16 @@ import { View, Text, Button, StyleSheet } from "react-native";
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Screen</Text>
+      <Text style={styles.title}>Choose a Destination</Text>
 
       <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        title="Go to Paris"
+        onPress={() => navigation.navigate('Details', { place: 'Paris', rating: 5 })}
+      />
+
+      <Button
+        title="Go to London"
+        onPress={() => navigation.navigate('Details', { place: 'London', rating: 4 })}
       />
     </View>
   );

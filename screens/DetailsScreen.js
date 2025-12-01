@@ -1,14 +1,12 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
-export default function DetailsScreen({ navigation }) {
+export default function DetailsScreen({ route }) {
+  const { place, rating } = route.params;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Details Screen</Text>
-
-      <Button
-        title="Go Back"
-        onPress={() => navigation.goBack()}
-      />
+      <Text style={styles.title}>Welcome to {place}!</Text>
+      <Text style={styles.text}>Rating: {rating} stars</Text>
     </View>
   );
 }
@@ -21,6 +19,10 @@ const styles = StyleSheet.create({
     gap: 20
   },
   title: {
-    fontSize: 22,
+    fontSize: 26,
+    fontWeight: "bold"
+  },
+  text: {
+    fontSize: 20,
   },
 });
