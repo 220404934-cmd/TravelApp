@@ -1,31 +1,39 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-export default function HomeScreen({ navigation }) {
+import HomeScreen from "./screens/HomeScreen";
+import DetailsScreen from "./screens/DetailsScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+// ----------- STACK NAVIGATOR (HOME + DETAILS) -----------
+function HomeStack() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Choose a Destination</Text>
-
-      <Button
-        title="Go to Paris"
-        onPress={() => navigation.navigate('Details', { place: 'Paris', rating: 5 })}
-      />
-
-      <Button
-        title="Go to London"
-        onPress={() => navigation.navigate('Details', { place: 'London', rating: 4 })}
-      />
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20
-  },
-  title: {
-    fontSize: 22,
-  },
-});
+// ----------- TAB NAVIGATOR -----------
+function AppTabs() {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Explore" component={HomeStack} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+    </Tab.Navigator>
+  );
+}
+
+// ----------- MAIN APP -----------
+export default function App() {
+  return (
+    <NavigationContainer>
+      <AppTabs />
+    </NavigationContainer>
+  );
+}
